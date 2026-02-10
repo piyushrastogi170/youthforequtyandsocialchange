@@ -1,0 +1,16 @@
+{
+    "name": "tanzeem/youth-for-equity-and-social-change",
+    "description": "Private NGO",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tanzeem",
+            "email": "yescindia2025@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

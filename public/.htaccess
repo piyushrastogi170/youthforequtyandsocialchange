@@ -1,0 +1,57 @@
+# --------------------------------------------
+# Enable Rewrite Engine
+# --------------------------------------------
+RewriteEngine On
+
+# --------------------------------------------
+# Prevent directory listing
+# --------------------------------------------
+Options -Indexes
+
+# --------------------------------------------
+# Force UTF-8 Encoding
+# --------------------------------------------
+AddDefaultCharset UTF-8
+
+# --------------------------------------------
+# Block access to sensitive files
+# --------------------------------------------
+<FilesMatch "^(\.env|composer\.json|composer\.lock|README\.md)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# --------------------------------------------
+# Protect core folders (extra safety)
+# --------------------------------------------
+RewriteRule ^(app|config|routes|database|storage|vendor)/ - [F,L]
+
+# --------------------------------------------
+# Remove index.php from URL (Front Controller)
+# --------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+
+# --------------------------------------------
+# Basic Security Headers
+# --------------------------------------------
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# --------------------------------------------
+# Cache static assets (performance)
+# --------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 7 days"
+    ExpiresByType text/css "access plus 30 days"
+    ExpiresByType application/javascript "access plus 30 days"
+    ExpiresByType image/jpg "access plus 60 days"
+    ExpiresByType image/jpeg "access plus 60 days"
+    ExpiresByType image/png "access plus 60 days"
+    ExpiresByType image/webp "access plus 60 days"
+</IfModule>
