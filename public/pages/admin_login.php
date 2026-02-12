@@ -112,11 +112,7 @@ if (empty($_SESSION['token'])) {
 </div>
 <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
 <!-- Utilities: Remember Me & Forgot Password -->
-<div class="flex items-center justify-between py-2">
-<label class="flex items-center gap-2 cursor-pointer group">
-<input class="rounded border-[#dce6db] text-primary focus:ring-primary h-4 w-4 transition-colors" type="checkbox"/>
-<span class="text-sm text-[#658961] dark:text-zinc-400 group-hover:text-[#121811] dark:group-hover:text-zinc-200 transition-colors">Remember Me</span>
-</label>
+<div class="flex items-center justify-end py-2">
 <a class="text-sm font-medium text-primary hover:text-opacity-80 transition-colors" href="#">Forgot Password?</a>
 </div>
 <!-- Sign In Button -->

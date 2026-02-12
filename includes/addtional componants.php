@@ -62,3 +62,18 @@
     });
   });
 </script>
+
+
+
+
+
+<!-- Info Card -->
+<div class="bg-primary/5 p-6 rounded-xl border border-primary/20">
+<h4 class="text-sm font-bold text-primary flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-sm">security</span>
+                                Security Tip
+                            </h4>
+<p class="text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                                Only grant <b>Super Admin</b> access to executive board members. For operational tasks, use the <b>Admin</b> role to maintain data integrity.
+                            </p>
+</div>

@@ -1,10 +1,28 @@
 <?php
 session_start();
 
+
 if (!isset($_SESSION['admin_id'])) {
     header("Location: ../admin_login.php");
     exit;
 }
+
+
+// Authonatication Admin & super admin boath allowed
+function requireRole($roles) {
+
+    if (!isset($_SESSION['admin_id'])) {
+        header("Location: ../admin_login.php");
+        exit;
+    }
+
+    if (!in_array($_SESSION['role'], (array)$roles)) {
+        header("Location: ../admin_login.php");
+        exit;
+    }
+}
+requireRole(['admin','super_admin']);
+
 ?>
 <!DOCTYPE html>
 
@@ -52,68 +70,9 @@ if (!isset($_SESSION['admin_id'])) {
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-100 min-h-screen">
 <div class="flex h-screen overflow-hidden">
 <!-- Sidebar Navigation -->
-<aside class="w-64 bg-white dark:bg-zinc-900 border-r border-primary/10 flex flex-col shrink-0">
-<div class="p-6 flex items-center gap-3">
-<div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white shadow-lg shadow-primary/20">
-<span class="material-symbols-outlined text-2xl">diversity_3</span>
-</div>
-<div class="flex flex-col">
-<span class="font-bold text-sm tracking-tight leading-none">Youth for Equity</span>
-<span class="text-[10px] text-primary font-semibold uppercase tracking-widest mt-1">Social Change</span>
-</div>
-</div>
-<nav class="flex-1 px-4 space-y-1 mt-4">
-<a class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary font-semibold rounded-lg" href="#">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="text-sm">Dashboard</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors rounded-lg" href="#">
-<span class="material-symbols-outlined">volunteer_activism</span>
-<span class="text-sm font-medium">Donations</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors rounded-lg" href="#">
-<span class="material-symbols-outlined">groups</span>
-<span class="text-sm font-medium">Volunteers</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors rounded-lg" href="#">
-<span class="material-symbols-outlined">auto_stories</span>
-<span class="text-sm font-medium">Programs</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors rounded-lg" href="#">
-<span class="material-symbols-outlined">description</span>
-<span class="text-sm font-medium">Reports</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors rounded-lg" href="#">
-<span class="material-symbols-outlined">settings</span>
-<span class="text-sm font-medium">Settings</span>
-</a>
-</nav>
-<div class="p-4 mt-auto">
-<div class="bg-primary/5 rounded-xl p-4 border border-primary/10">
-<p class="text-[11px] font-bold text-primary uppercase tracking-wider mb-2">Campaign Goal</p>
-<div class="h-2 w-full bg-primary/20 rounded-full mb-2">
-<div class="h-full bg-primary rounded-full w-[72%] shadow-[0_0_8px_rgba(33,212,17,0.4)]"></div>
-</div>
-<div class="flex justify-between text-[11px] font-medium">
-<span>₹8.5L raised</span>
-<span>72%</span>
-</div>
-</div>
-<button class="w-full mt-4 bg-primary text-white py-2.5 rounded-lg text-sm font-bold shadow-lg shadow-primary/20 hover:brightness-110 transition-all flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-sm">support</span>
-                    Support NGO
-                </button>
-</div>
-</aside>
+<?php include dirname(__DIR__, 3) . '/includes/admin_sidebar.php'; ?>
 <!-- Main Content -->
 <main class="flex-1 flex flex-col overflow-y-auto">
-
-
-
-
-
-
-
 <!-- Top Bar -->
 <header class="h-16 bg-white dark:bg-zinc-900 border-b border-primary/10 flex items-center justify-between px-8 shrink-0 sticky top-0 z-10">
 <div class="flex-1 max-w-xl">
@@ -130,8 +89,8 @@ if (!isset($_SESSION['admin_id'])) {
 <div class="h-8 w-px bg-slate-200 dark:bg-zinc-800"></div>
 <div class="flex items-center gap-3 pl-2">
 <div class="text-right hidden sm:block">
-<p class="text-sm font-bold leading-none">Arjun Mehta</p>
-<p class="text-[11px] text-slate-400 font-medium">System Admin</p>
+<p class="text-sm font-bold leading-none">Arjun</p>
+<p class="text-[11px] text-slate-400 font-medium">Admin</p>
 </div>
 <div class="size-10 rounded-full bg-primary/20 border-2 border-primary overflow-hidden">
 <img class="w-full h-full object-cover" data-alt="Admin profile picture arjun mehta" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgmvePCwiQZFE6fk-SHlQ9jDJD8lWBvhjU8faC7AH0FGQLQ1KiMvCNpQP66sZwJ4j9IIy0FpSbZf75R3BBNZEy041cWRy0nZJ1un_ItKZLi-sXO90_X_Y6eEZteEW_7dlmIOPwtM0yHCinhsnbgmKYzClEJOE7HW3DPkZCA25iiAPfhiNU4QhNPKdHkc16oEH1VYcHngF52MnzKxzvObpfxJ7NUJCS2bOtmcRUx8hYd26phVzPmPmhw1nWwuRbCRegDlJ5v4BSsuY"/>
@@ -319,7 +278,9 @@ if (!isset($_SESSION['admin_id'])) {
 </div>
 </div>
 </div>
-<?php include "../../includes/footer.php" ?>
 </main>
 </div>
+
+<?php include dirname(__DIR__, 3) . '/includes/admin_footer.php'; ?>
+
 </body></html>
