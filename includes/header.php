@@ -1,8 +1,20 @@
 <!-- Header / Navbar -->
 
-
+<!-- Scroll Progress Bar -->
+<style>
+.scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: #21d411;
+            z-index: 100;
+        }
+</style>
+<div class="scroll-progress"></div>
 <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
-<header class="sticky top-0 z-50 w-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-[#21d411]/10">
+<header class="fixed top-0 z-50 w-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-[#21d411]/10">
   <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8 h-16">
     
     <div class="flex lg:flex-1 items-center">
@@ -37,7 +49,7 @@
       </button>
     </div>
     <el-popover-group class="hidden lg:flex lg:gap-x-12">
-    <?php $currentPage = basename($_SERVER['PHP_SELF']); ?>
+      <?php $currentPage = basename($_SERVER['PHP_SELF']); ?>
 
 <a href="index.php" 
    class="text-sm/6 font-semibold hover:text-primary <?= ($currentPage == 'index.php') ? 'text-primary' : 'text-gray-900'; ?>">

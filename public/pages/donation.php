@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -44,7 +45,7 @@
 <?php include "../../includes/header.php" ?>
 <main class="flex-1">
 <!-- Hero Section -->
-<section class="relative h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
+<section class="mt-16 relative h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
 <div class="absolute inset-0 bg-cover bg-center" data-alt="Diverse youth group smiling together outdoors" style='background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDfNIhQADl8vuKG4Y1FZ86J4cUQZrshC_J7PMCzxIcnLD_6oHMbaDA-_S0brYguhG8f9cgF-uwybaGzpIlLmVSePOpEq3LeX4M-llunaPrdczdmEFuSJPqEFcTDkV7BIks08OONf7RQhXp9cYHKxyPVnRgCuHjUC-toJiLDjNl7KJ6Nhoj14EJmn_E3xQFV7LXvhSa85ECd3XyoM1QoqgpWvkEZeauT9CDVgbDQ62TAbj5QN4-Mhd-Nc1IW5GxFw6TFcokFAT31ggA");'></div>
 <div class="relative z-10 text-center px-4 max-w-4xl">
 <h1 class="text-white text-4xl md:text-6xl font-black mb-6 leading-tight tracking-tight">
@@ -170,18 +171,23 @@ Personal Information
     type="number"
     class="w-full pl-8 rounded-lg border-slate-200 focus:ring-primary bg-gray-100 text-gray-700"
     style="cursor: not-allowed"
-    disabled
+    readonly
     placeholder="0" name="amount"
   />
 
 </div>
 
 
-<button id="donateBtn"
+<button type="button" id="donateBtn"
 class="w-full bg-primary text-white py-4 rounded-xl font-black text-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-3">
 <span class="material-symbols-outlined">lock</span>
 Complete Donation
 </button>
+<div class="flex items-center justify-center gap-6 opacity-50 grayscale">
+<span class="material-symbols-outlined text-3xl">verified_user</span>
+<span class="material-symbols-outlined text-3xl">shield_person</span>
+<span class="material-symbols-outlined text-3xl">account_balance</span>
+</div>
 </form>
 </div>
 <!-- Trust Signals & Impact -->
@@ -266,84 +272,177 @@ Complete Donation
 </main>
 <?php include "../../includes/footer.php" ?>
 </div>
+<!-- Back to Top Button -->
+<button id="backToTop"
+  class="fixed z-50 bottom-8 right-8 bg-primary text-[#121811] size-12 rounded-full 
+  flex items-center justify-center shadow-lg 
+  hover:scale-110 transition-all duration-300 
+  opacity-0 invisible">
+
+  <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+<script>
+  const backToTop = document.getElementById("backToTop");
+
+  // Scroll par button show/hide
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 300) {
+      backToTop.classList.remove("opacity-0", "invisible");
+      backToTop.classList.add("opacity-100", "visible");
+    } else {
+      backToTop.classList.add("opacity-0", "invisible");
+      backToTop.classList.remove("opacity-100", "visible");
+    }
+  });
+
+  // Smooth scroll to top
+  backToTop.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+
 </body>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-  const oneTimeBtn = document.getElementById("oneTimeBtn");
-  const monthlyBtn = document.getElementById("monthlyBtn");
+    /* =========================
+       1. Frequency Toggle
+    ========================== */
+    const oneTimeBtn = document.getElementById("oneTimeBtn");
+    const monthlyBtn = document.getElementById("monthlyBtn");
 
-  function activate(activeBtn, inactiveBtn) {
+    function activate(activeBtn, inactiveBtn) {
+        activeBtn.classList.add("bg-white", "shadow-sm", "text-primary");
+        activeBtn.classList.remove("text-slate-500");
 
-    // Active button styles
-    activeBtn.classList.add(
-      "bg-white",
-      "shadow-sm",
-      "text-primary",
-      "scale-100"
-    );
+        inactiveBtn.classList.remove("bg-white", "shadow-sm", "text-primary");
+        inactiveBtn.classList.add("text-slate-500");
+    }
 
-    activeBtn.classList.remove(
-      "text-slate-500"
-    );
+    oneTimeBtn.addEventListener("click", () => activate(oneTimeBtn, monthlyBtn));
+    monthlyBtn.addEventListener("click", () => activate(monthlyBtn, oneTimeBtn));
 
-    // Inactive button styles
-    inactiveBtn.classList.remove(
-      "bg-white",
-      "shadow-sm",
-      "text-primary",
-      "scale-100"
-    );
 
-    inactiveBtn.classList.add(
-      "text-slate-500"
-    );
-  }
+    /* =========================
+       2. Amount Selection Logic
+    ========================== */
+    const radios = document.querySelectorAll(".donation-radio");
+    const customAmount = document.getElementById("customAmount");
+    const finalAmount = document.getElementById("finalAmount");
 
-  oneTimeBtn.addEventListener("click", function () {
-    activate(oneTimeBtn, monthlyBtn);
-  });
-
-  monthlyBtn.addEventListener("click", function () {
-    activate(monthlyBtn, oneTimeBtn);
-  });
-
-});
-document.addEventListener("DOMContentLoaded", function () {
-
-  const radios = document.querySelectorAll(".donation-radio");
-  const customAmount = document.getElementById("customAmount");
-  const finalAmount = document.getElementById("finalAmount");
-
-  /* Default selected value */
-  const checked = document.querySelector(".donation-radio:checked");
-  if (checked) {
-    finalAmount.value = checked.value;
-  }
-
-  /* When card is selected */
-  radios.forEach(radio => {
-    radio.addEventListener("change", function () {
-      finalAmount.value = this.value;
-      customAmount.value = "";
+    // Card selection
+    radios.forEach(radio => {
+        radio.addEventListener("change", function () {
+            finalAmount.value = this.value;
+            customAmount.value = "";
+        });
     });
-  });
 
-  /* When custom amount is typed */
-  customAmount.addEventListener("input", function () {
+    // Custom amount
+    customAmount.addEventListener("input", function () {
+        radios.forEach(r => r.checked = false);
+        finalAmount.value = this.value;
+    });
 
-    // Uncheck radio cards
-    radios.forEach(r => r.checked = false);
 
-    // Show custom value
-    finalAmount.value = this.value;
-  });
+    /* =========================
+       3. Donation Button Logic
+    ========================== */
+    const donateBtn = document.getElementById("donateBtn");
+
+    donateBtn.addEventListener("click", function (e) {
+
+        e.preventDefault();
+
+        if (!finalAmount.value || finalAmount.value <= 0) {
+            alert("Please select or enter a valid amount.");
+            return;
+        }
+
+        // Disable button
+        donateBtn.disabled = true;
+        donateBtn.classList.add("opacity-60", "cursor-not-allowed");
+        donateBtn.innerHTML = "Processing...";
+
+        const formData = new FormData(document.querySelector("form"));
+
+        fetch("donation-handling.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            if (data.status !== "success") {
+                alert("Order Failed: " + data.message);
+                donateBtn.disabled = false;
+                donateBtn.classList.remove("opacity-60", "cursor-not-allowed");
+                donateBtn.innerHTML = '<span class="material-symbols-outlined">lock</span> Complete Donation';
+                return;
+            }
+
+            var options = {
+                key: data.key,
+                amount: data.amount * 100,
+                currency: "INR",
+                name: "Youth for Equity & Social Change",
+                description: "Donation",
+                order_id: data.order_id,
+
+                handler: function (response) {
+
+                    fetch("payment-success.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_signature: response.razorpay_signature,
+                            fname: document.querySelector('[name="f_name"]').value,
+                            lname: document.querySelector('[name="l_name"]').value,
+                            email: document.querySelector('[name="email"]').value,
+                            mobile: document.querySelector('[name="mobile"]').value,
+                            amount: finalAmount.value
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(res => {
+                        if (res.status === "success") {
+                            window.location.href = "thank-you.php";
+                        } else {
+                            alert("Verification Failed");
+                            donateBtn.disabled = false;
+                        }
+                    });
+                }
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.open();
+
+            rzp.on('payment.failed', function () {
+                donateBtn.disabled = false;
+                donateBtn.classList.remove("opacity-60", "cursor-not-allowed");
+                donateBtn.innerHTML = '<span class="material-symbols-outlined">lock</span> Complete Donation';
+            });
+
+        })
+        .catch(() => {
+            alert("Server error. Try again.");
+            donateBtn.disabled = false;
+            donateBtn.classList.remove("opacity-60", "cursor-not-allowed");
+            donateBtn.innerHTML = '<span class="material-symbols-outlined">lock</span> Complete Donation';
+        });
+
+    });
 
 });
 </script>
 
+
 </html>
-
-
-
-

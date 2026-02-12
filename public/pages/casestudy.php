@@ -37,7 +37,7 @@
 <?php include "../../includes/header.php" ?>
 <main>
 <!-- Hero Section -->
-<section class="relative h-[85vh] flex items-center justify-center overflow-hidden">
+<section class="mt-16 relative h-[85vh] flex items-center justify-center overflow-hidden">
 <div class="absolute inset-0 z-0">
 <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background-light dark:to-background-dark"></div>
 <img alt="Students studying in a rural classroom" class="w-full h-full object-cover" data-alt="Children reading together in a bright rural classroom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQL8EDF_e59Juy5meIF_0EPUCCWUyWVb98Vc_9tEmiQCW0cEYVy4_qhdXRuzoffLuElr9PbNZppreyav949CwUps7mJUBlfL__WnlBTPDbEtpIZqvw1xOwnKDtpxNvjpZZ4OtGAsMel0TD89hdu9dcd7oqAAox0K2HNhlf1L6LQaEROFltV8i7UkZIIX5Eey6z6St-ZC4eCgMX2G0rkIavYzypYnqKwvpZPtoY5KccoZT7Nphv409DqqjFMno2TR4TPaCROmxSR5g"/>
@@ -234,4 +234,36 @@
 </section>
 </main>
 <?php include "../../includes/footer.php" ?>
+<!-- Back to Top Button -->
+<button id="backToTop"
+  class="fixed z-50 bottom-8 right-8 bg-primary text-[#121811] size-12 rounded-full 
+  flex items-center justify-center shadow-lg 
+  hover:scale-110 transition-all duration-300 
+  opacity-0 invisible">
+
+  <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+<script>
+  const backToTop = document.getElementById("backToTop");
+
+  // Scroll par button show/hide
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 300) {
+      backToTop.classList.remove("opacity-0", "invisible");
+      backToTop.classList.add("opacity-100", "visible");
+    } else {
+      backToTop.classList.add("opacity-0", "invisible");
+      backToTop.classList.remove("opacity-100", "visible");
+    }
+  });
+
+  // Smooth scroll to top
+  backToTop.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+
 </body></html>

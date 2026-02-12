@@ -49,6 +49,7 @@
         .hero-gradient {
             background: linear-gradient(rgba(18, 34, 16, 0.6), rgba(18, 34, 16, 0.9));
         }
+
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 transition-colors duration-300">
@@ -57,7 +58,7 @@
 <?php include "../../includes/header.php" ?>
 <main>
 <!-- Hero Section -->
-<section class="relative overflow-hidden pt-16 pb-12 md:pt-24 md:pb-20">
+<section class="mt-16 relative overflow-hidden pt-16 pb-12 md:pt-24 md:pb-20">
 
   <!-- Light Background Overlay -->
   <div class="absolute inset-0 z-0 bg-primary/5 opacity-50"></div>
@@ -215,4 +216,36 @@
             document.querySelector(".scroll-progress").style.width = scrolled + "%";
         });
     </script>
+    <!-- Back to Top Button -->
+<button id="backToTop"
+  class="fixed z-50 bottom-8 right-8 bg-primary text-[#121811] size-12 rounded-full 
+  flex items-center justify-center shadow-lg 
+  hover:scale-110 transition-all duration-300 
+  opacity-0 invisible">
+
+  <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+<script>
+  const backToTop = document.getElementById("backToTop");
+
+  // Scroll par button show/hide
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 300) {
+      backToTop.classList.remove("opacity-0", "invisible");
+      backToTop.classList.add("opacity-100", "visible");
+    } else {
+      backToTop.classList.add("opacity-0", "invisible");
+      backToTop.classList.remove("opacity-100", "visible");
+    }
+  });
+
+  // Smooth scroll to top
+  backToTop.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+
 </body></html>

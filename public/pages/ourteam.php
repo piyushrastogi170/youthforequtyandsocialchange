@@ -56,13 +56,13 @@
                 transform: translateY(0);
             }
         }
-    </style>
+        </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-earth-brown dark:text-background-light">
 <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
 <?php include "../../includes/header.php" ?>
 <!-- Hero Section -->
-<section class="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+<section class="mt-16 relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
 <div class="absolute inset-0 z-0">
 <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-background-dark/90 z-10"></div>
 <img class="w-full h-full object-cover" data-alt="Group of diverse young activists smiling together" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6-G-fSFq_yqugawNB82p8SjYfnA9heUYXou6Jh6GctgpwvRdt1NSK3MmwdyiMwqK9tqPglu9pBHzxEwDyVa_qc9BYfFmQcKrFd8j68J5fCVZH_0lgsCqOILm9FsXh9vVJtmazgbdbLD1IJyp9iYiZb0xl_akmxAYjf4kT_2_YdZmCfvOXzL0NjSsp5eX6VMGdOJhLQuxPLuLqt-WxqsfPsP7G8GSLBir7gQ2oSEhHW5YyNGFd_iu50-W3yPXs5F6KMWWNgidJgyw"/>
@@ -220,4 +220,36 @@
 <!-- Footer -->
 <?php include "../../includes/footer.php" ?>
 </div>
+<!-- Back to Top Button -->
+<button id="backToTop"
+  class="fixed z-50 bottom-8 right-8 bg-primary text-[#121811] size-12 rounded-full 
+  flex items-center justify-center shadow-lg 
+  hover:scale-110 transition-all duration-300 
+  opacity-0 invisible">
+
+  <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+<script>
+  const backToTop = document.getElementById("backToTop");
+
+  // Scroll par button show/hide
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 300) {
+      backToTop.classList.remove("opacity-0", "invisible");
+      backToTop.classList.add("opacity-100", "visible");
+    } else {
+      backToTop.classList.add("opacity-0", "invisible");
+      backToTop.classList.remove("opacity-100", "visible");
+    }
+  });
+
+  // Smooth scroll to top
+  backToTop.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+
 </body></html>

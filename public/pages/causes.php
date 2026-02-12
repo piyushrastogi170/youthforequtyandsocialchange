@@ -49,7 +49,7 @@
 <?php include "../../includes/header.php" ?>
 <main>
 <!-- Hero Section -->
-<section class="relative pt-24 pb-16 px-6 overflow-hidden">
+<section class="mt-16 relative pt-24 pb-16 px-6 overflow-hidden">
 <div class="absolute inset-0 -z-10 opacity-30">
 <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px]"></div>
 <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]"></div>

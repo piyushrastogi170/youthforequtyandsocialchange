@@ -47,7 +47,7 @@
 <?php include "../../includes/header.php" ?>
 <main>
 <!-- Hero Section -->
-<section class="relative pt-20 pb-16 px-6 overflow-hidden">
+<section class="mt-16 relative pt-20 pb-16 px-6 overflow-hidden">
 <div class="absolute top-0 right-0 -z-10 w-96 h-96 bg-primary/10 organic-shape blur-3xl opacity-50 translate-x-1/2 -translate-y-1/2"></div>
 <div class="absolute bottom-0 left-0 -z-10 w-72 h-72 bg-earth-brown/5 organic-shape blur-3xl opacity-30 -translate-x-1/4 translate-y-1/4"></div>
 <div class="max-w-4xl mx-auto text-center space-y-6">
@@ -220,4 +220,36 @@
 </main>
 <!-- Footer -->
 <?php include "../../includes/footer.php" ?>
+<!-- Back to Top Button -->
+<button id="backToTop"
+  class="fixed z-50 bottom-8 right-8 bg-primary text-[#121811] size-12 rounded-full 
+  flex items-center justify-center shadow-lg 
+  hover:scale-110 transition-all duration-300 
+  opacity-0 invisible">
+
+  <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+<script>
+  const backToTop = document.getElementById("backToTop");
+
+  // Scroll par button show/hide
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 300) {
+      backToTop.classList.remove("opacity-0", "invisible");
+      backToTop.classList.add("opacity-100", "visible");
+    } else {
+      backToTop.classList.add("opacity-0", "invisible");
+      backToTop.classList.remove("opacity-100", "visible");
+    }
+  });
+
+  // Smooth scroll to top
+  backToTop.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+
 </body></html>

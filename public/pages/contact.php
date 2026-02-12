@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -67,7 +66,7 @@
 <?php include "../../includes/header.php" ?>
 <main>
 <!-- Hero Section -->
-<section class="relative overflow-hidden pt-16 pb-12 md:pt-24 md:pb-20">
+<section class="mt-16 relative overflow-hidden pt-16 pb-12 md:pt-24 md:pb-20">
 <div class="absolute inset-0 z-0 bg-primary/5 opacity-50"></div>
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
 <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6 text-[#121811] dark:text-white">
@@ -133,24 +132,28 @@
 </div>
 <!-- Contact Form (Right) -->
 <div class="lg:col-span-7 bg-white dark:bg-background-dark/40 p-6 md:p-10 rounded-2xl shadow-xl border border-primary/10">
-<form class="space-y-6">
+<form method="post" action="contact-submit.php" class="space-y-6">
 <div class="grid md:grid-cols-2 gap-6">
 <div class="space-y-2">
 <label class="text-sm font-semibold text-[#121811] dark:text-white/80" for="name">Your Name</label>
-<input class="w-full px-4 py-3 rounded-lg border-[#dce6db] dark:border-primary/20 bg-background-light dark:bg-white/5 focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="name" placeholder="Alex Johnson" type="text"/>
+<input class="w-full px-4 py-3 rounded-lg border-[#dce6db] dark:border-primary/20 bg-background-light dark:bg-white/5 focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="name" name="name" placeholder="Full Name" type="text" required/>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-semibold text-[#121811] dark:text-white/80" for="email">Email Address</label>
-<input class="w-full px-4 py-3 rounded-lg border-[#dce6db] dark:border-primary/20 bg-background-light dark:bg-white/5 focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="email" placeholder="alex@example.com" type="email"/>
+<input class="w-full px-4 py-3 rounded-lg border-[#dce6db] dark:border-primary/20 bg-background-light dark:bg-white/5 focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="email" name="email" placeholder="examplex@email.com" type="email" required/>
 </div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-[#121811] dark:text-white/80" for="mobile">Mobile</label>
+<input class="w-full px-4 py-3 rounded-lg border-[#dce6db] dark:border-primary/20 bg-background-light dark:bg-white/5 focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="mobile" name="mobile" placeholder="+91-XXXXXXXXXX" type="text" required/>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-semibold text-[#121811] dark:text-white/80" for="subject">Subject</label>
-<input class="w-full px-4 py-3 rounded-lg border-[#dce6db] dark:border-primary/20 bg-background-light dark:bg-white/5 focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="subject" placeholder="How can we help?" type="text"/>
+<input class="w-full px-4 py-3 rounded-lg border-[#dce6db] dark:border-primary/20 bg-background-light dark:bg-white/5 focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="subject" name="subject" placeholder="How can we help?" type="text" required/>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-semibold text-[#121811] dark:text-white/80" for="message">Your Message</label>
-<textarea class="w-full px-4 py-3 rounded-lg border-[#dce6db] dark:border-primary/20 bg-background-light dark:bg-white/5 focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="message" placeholder="Tell us more about your inquiry..." rows="5"></textarea>
+<textarea class="w-full px-4 py-3 rounded-lg border-[#dce6db] dark:border-primary/20 bg-background-light dark:bg-white/5 focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="message" name="message" placeholder="Tell us more about your inquiry..." rows="5" required></textarea>
 </div>
 <button class="w-full py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-all shadow-lg shadow-primary/30 flex items-center justify-center gap-2" type="submit">
 <span>Send Message</span>
@@ -184,4 +187,39 @@ function reveal() {
 }
 window.addEventListener('scroll', reveal);
 reveal(); // Initial check
-</script></body></html>
+</script>
+
+<!-- Back to Top Button -->
+<button id="backToTop"
+  class="fixed z-50 bottom-8 right-8 bg-primary text-[#121811] size-12 rounded-full 
+  flex items-center justify-center shadow-lg 
+  hover:scale-110 transition-all duration-300 
+  opacity-0 invisible">
+
+  <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+<script>
+  const backToTop = document.getElementById("backToTop");
+
+  // Scroll par button show/hide
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 300) {
+      backToTop.classList.remove("opacity-0", "invisible");
+      backToTop.classList.add("opacity-100", "visible");
+    } else {
+      backToTop.classList.add("opacity-0", "invisible");
+      backToTop.classList.remove("opacity-100", "visible");
+    }
+  });
+
+  // Smooth scroll to top
+  backToTop.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+
+</body>
+</html>

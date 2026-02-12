@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# If request is not existing file
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Send to custom 404
+RewriteRule ^ public/pages/404.php [L]
