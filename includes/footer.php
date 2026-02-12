@@ -40,6 +40,7 @@
 <div>
 <h5 class="font-bold mb-6 text-primary">Quick Links</h5>
 <ul class="space-y-4 text-sm text-white/60">
+<li><a class="hover:text-white transition-colors" href="admin_login.php">Admin Login</a></li>
 <li><a class="hover:text-white transition-colors" href="#">Our History</a></li>
 <li><a class="hover:text-white transition-colors" href="#">Annual Reports</a></li>
 <li><a class="hover:text-white transition-colors" href="#">Partner With Us</a></li>
